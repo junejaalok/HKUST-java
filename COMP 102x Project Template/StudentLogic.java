@@ -22,8 +22,6 @@ public class StudentLogic implements GameLogic{
      * @param finalY The final y positions of the football.
      * @return The selected depth image of football.
      */
-
-    private int call=1;
     public ColorImage generateIntermediateFootballImage(ColorImage[] depthImages, int initialStep, int currentStep, int finalStep, double initialScale, double finalScale, int initialX, int finalX, int initialY, int finalY) {
         // write your code after this line
 
@@ -55,14 +53,14 @@ public class StudentLogic implements GameLogic{
      *          (A1): Check the indices (t1,t2) of randomaly picked nearest neighbour are within the boundaries of 2D array such that following conditions are fullfilled <br> 
      *          Conditions: t1 >= 0 (upper boundary) && t2 >= 0 (left boundary) && t1 < row (lower boundary) && t2 < col (right boundary) <br>
      *          (A2): If the current goal i-index and t1 are similar and current goal j-index and t2 are similar, this referes to the current goal itself and is discarded since current goal to itself is not neighbour <br>
-     *          (B): Check for the swap with neighbour "no-there" goal. Make sure that reverse swap not allowed in the same call of the method (current goal is not equal to the ealier swapped goal)<br>
-     *          (C): Check for the swap with neighbour moveable "is-there" goal. Make sure that reverse swap not allowed in the same call of the method <br> <br> 
+     *          (B): Check for the swap with neighbour "no-there" goal. Make sure that reverse swap not allowed. For which check that in the same call to the method, current goal is not equal to its original location before the earlier swap <br>
+     *          (C): Check for the swap with neighbour moveable "is-there" goal. Make sure that reverse swap not allowed. For which check that in the same call to the method, current goal is not equal to its original location before the earlier swap <br> <br> 
      * Step4: If conditions in Step3B/3C are satisfied <br>
      *          (A): Put the swapped current goal "is-there" in the 2D array log to check reverse swap in the same call of the method <br>
      *          (B): Put current goal (array cell) in temp <br>
      *          (C): Swap the current goal with the "not there" goal or with moveable "is-there" goal <br>
-     *          (C): Put the temp in "not-there" or moveable "is-there" goal <br> <br> <br> 
-     * Debug mode: change debug variable to true in function updateGoalPositions to see the details of the working of function.
+     *          (C): Put the temp in "not-there" or moveable "is-there" goal <br> <br> 
+     * Debug mode: change debug variable to true in function updateGoalPositions to see the littel bit more working details of the function <br> <br> <br>
      *
      * There are three difficulty levels: <br>
      *  Level 1: All the goals are stationary <br>
@@ -80,7 +78,6 @@ public class StudentLogic implements GameLogic{
         int max=1;
         Random rand = new Random();
         if (debug) {
-            IO.outputln(call + "call to this method");
             IO.outputln("=======");
         }
         for (int i=0;i<row;i++){

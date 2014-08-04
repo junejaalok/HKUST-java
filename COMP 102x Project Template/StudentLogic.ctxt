@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.params=depthImages\ initialStep\ currentStep\ finalStep\ initialScale\ finalScale\ initialX\ finalX\ initialY\ finalY
+comment0.target=comp102x.ColorImage\ generateIntermediateFootballImage(comp102x.ColorImage[],\ int,\ int,\ int,\ double,\ double,\ int,\ int,\ int,\ int)
+comment0.text=\n\ Generates\ an\ intermediate\ football\ image\ for\ the\ shooting\ animation.\n\ \n\ @param\ depthImages\ The\ array\ contains\ an\ array\ of\ football\ images\ of\ different\ depths.\n\ @param\ initialStep\ The\ initial\ step\ of\ the\ shooting\ animation.\n\ @param\ currentStep\ The\ current\ step\ of\ the\ shooting\ animation\n\ @param\ finalStep\ The\ final\ step\ of\ the\ shooting\ animation.\n\ @param\ initialScale\ The\ initial\ scale\ of\ the\ football\ \n\ @param\ finalScale\ The\ final\ scale\ of\ the\ football\ \n\ @param\ initialX\ The\ initial\ x\ position\ of\ the\ football.\n\ @param\ finalX\ The\ final\ x\ positions\ of\ the\ football.\n\ @param\ initialY\ The\ initial\ y\ position\ of\ the\ football.\n\ @param\ finalY\ The\ final\ y\ positions\ of\ the\ football.\n\ @return\ The\ selected\ depth\ image\ of\ football.\n
+comment1.params=goals
+comment1.target=void\ updateGoalPositions(comp102x.assignment.Goal[][])
+comment2.params=highScoreRecords\ name\ level\ score
+comment2.target=comp102x.assignment.GameRecord[]\ updateHighScoreRecords(comp102x.assignment.GameRecord[],\ java.lang.String,\ int,\ int)
+numComments=3

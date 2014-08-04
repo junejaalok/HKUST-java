@@ -74,3 +74,16 @@ public class Car2
     }
 
 }
+
+/*
+IO.outputln("is: " + initialStep);
+        IO.outputln("cs: " + currentStep);
+        IO.outputln("fs: " + finalStep);
+        
+        IO.outputln("fact: " + fact);
+        IO.outputln("imageIndex: " + imageIndex);
+        IO.outputln("xPos: " + xPos);
+        IO.outputln("yPos: " + yPos);
+        IO.outputln("scale: " + scale);
+        IO.outputln("--------");
+*/

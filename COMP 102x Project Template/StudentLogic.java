@@ -40,7 +40,24 @@ public class StudentLogic implements GameLogic{
         return fbImage;
     }
 
-
+    /**
+     * Step1: At every array cell, check three conditions <br>
+     *          A: its Type (if it movable/stationary) <br>
+     *          B: its Hit state (True/False) <br>
+     *          C: and whether it has been swaped once or not in the current method call <br> <br>
+     * Step2: Generate randome number between -1 and 1 and assign to varialbes r1 and r2 respecitvely <br> <br>
+     * Step3: Sum up current cell i-index and r1 and assign it to varialbe t1 and j-index and r2 <br> <br>
+     *        Sum up current cell j-index and r2 and assign it to varialbe t2 <br> <br>
+     * Step4: Strategy to pick the nearest neighbours <br>
+     *          A: if the current cell i-index and t1 are similar and j-index and t2 are similar, this <br>
+     *          referes to the cell itself and is discarded and cell to itself is not neighbour. <br>
+     *          B: check the bound such that following conditions are fullfilled <br>
+     *             t1 >= 0 && t2 >= 0 && t1 < row && t2 < col <br> <br>
+     * Step5: In the if statement of Step4B, check if the goal is not being Hit (.)
+     * https://courses.edx.org/courses/HKUSTx/COMP102x/2T2014/discussion/forum/i4x-HKUSTx-COMP102x-course-2014-Project/threads/53d0d8822b8b56357e000f3f
+     * @param goals .
+     * @return void
+     */
     public void updateGoalPositions(Goal[][] goals) {
         // write your code after this line
         // Type: 1 is stationary
@@ -58,43 +75,23 @@ public class StudentLogic implements GameLogic{
         Random rand = new Random();
         for (int i=0;i<row;i++){
             for (int j=0;j<col;j++){
-                    IO.outputln("====");
-                    //IO.outputln(i +"-" + j + "goal type:" + goals[i][j].getType());
-                    //IO.outputln(i +"-" + j + "goal is hit:" + goals[i][j].isHit());
-                    //IO.outputln(i +"-" + j + "goal is swaped:" + swaped[i][j]);
-
                 if (goals[i][j].getType() == 2 && goals[i][j].isHit() == false && swaped[i][j] == 0) {
-                        int r1 = rand.nextInt((max - min) + 1) + min;
-                        int r2 = rand.nextInt((max - min) + 1) + min;
-                        int t1=i+r1;
-                        int t2=j+r2;
+                    int r1 = rand.nextInt((max - min) + 1) + min;
+                    int r2 = rand.nextInt((max - min) + 1) + min;
+                    int t1=i+r1;
+                    int t2=j+r2;
                     
-                        if (i == t1 && j == t2) continue;
+                    if (i == t1 && j == t2) continue;
 
-                        if (t1 >= 0 && t2 >= 0 && t1 < row && t2 < col && goals[t1][t2].isHit() == true && swaped[i][j] == 0) { 
-                            IO.outputln(t1 +"-" + t2 + "goal type:" + goals[t1][t2].getType());
-                            IO.outputln(t1 +"-" + t2 + "goal is hit:" + goals[t1][t2].isHit());
-                            IO.outputln(t1 +"-" + t2 + "goal is swaped:" + swaped[t1][t2]);
-                            IO.outputln(t1 +"-" + t2 + "goal is hit :");
-                            //if (swaped[i][j] == 0) {//goals[t1][t2].isHit() == false)){
-                                //IO.outputln(i +"-" + j + "ijbefore:" + goals[i][j]);
-                                //IO.outputln(t1 +"-" + t2 + "t1t2before:" + goals[t1][t2]);
-                                temp=goals[i][j];
-                                goals[i][j]=goals[t1][t2];
-                                goals[t1][t2]=temp;
-                                swaped[i][j]=1;
-                                //IO.outputln(i +"-" + j + "goal:" + goals[i][j].getType());
-                                //IO.outputln(t1 +"-" + t2 + "goal:" + goals[t1][t2].getType());
-                                //IO.outputln(t1 +"-" + t2 + "goal is hit:" + goals[t1][t2].isHit());
-                                //IO.outputln(i +"-" + j + "ijafter:" + goals[i][j]);
-                                //IO.outputln(t1 +"-" + t2 + "t1t2after:" + goals[t1][t2]);
-                                //IO.outputln(i + "accept-t1:" + t1);
-                                //IO.outputln(j + "accdpt-t2:" + t2);
-                                IO.outputln("========");
-                            }
-                        }        
-                } 
-            }
+                    if (t1 >= 0 && t2 >= 0 && t1 < row && t2 < col && goals[t1][t2].isHit() == true && swaped[i][j] == 0) { 
+                        temp=goals[i][j];
+                        goals[i][j]=goals[t1][t2];
+                        goals[t1][t2]=temp;
+                        swaped[i][j]=1;
+                    }
+                }        
+            } 
+        }
     }
         
     

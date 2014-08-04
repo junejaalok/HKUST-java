@@ -41,53 +41,65 @@ public class StudentLogic implements GameLogic{
     }
 
     /**
-     * Step1: At every array cell, check three conditions <br>
-     *          A: its Type (if it movable/stationary) <br>
-     *          B: its Hit state (True/False) <br>
-     *          C: and whether it has been swaped once or not in the current method call <br> <br>
-     * Step2: Generate randome number between -1 and 1 and assign to varialbes r1 and r2 respecitvely <br> <br>
-     * Step3: Sum up current cell i-index and r1 and assign it to varialbe t1 and j-index and r2 <br> <br>
-     *        Sum up current cell j-index and r2 and assign it to varialbe t2 <br> <br>
-     * Step4: Strategy to pick the nearest neighbours <br>
-     *          A: if the current cell i-index and t1 are similar and j-index and t2 are similar, this <br>
-     *          referes to the cell itself and is discarded and cell to itself is not neighbour. <br>
-     *          B: check the bound such that following conditions are fullfilled <br>
-     *             t1 >= 0 && t2 >= 0 && t1 < row && t2 < col <br> <br>
-     * Step5: In the if statement of Step4B, check if the goal is not being Hit (.)
-     * https://courses.edx.org/courses/HKUSTx/COMP102x/2T2014/discussion/forum/i4x-HKUSTx-COMP102x-course-2014-Project/threads/53d0d8822b8b56357e000f3f
-     * @param goals .
-     * @return void
+     * Step0: Variables <br>
+     *          log is Goal 2D array to avoid reverse swap in the same call of the method <br> <br>
+     * Step1: For every goal (array cell), check following conditions <br>
+     *          (A): Its Type (movable (Type:1)/stationary(Type:2)) <br>
+     *          (B): Its Hit state (True/False) <br> <br>
+     * Step2: Strategy to randomly generate the indices of nearest neighbour of the current goal <br>
+     *          (A): Generate random number between -1 and 1 and add it to the current goal i-index. That is row index (t1) of nearest neighbour <br>
+     *          (A): Generate random number between -1 and 1 and add it to the current goal j-index. That is column index (t2) of nearest neighbour <br> <br>
+     * Step3: Validate randomly picked nearest neighbour goal <br>
+     *          (A1): Check the indices (t1,t2) of randomaly picked nearest neighbour are within the boundaries of 2D array such that following conditions are fullfilled <br> 
+     *          Conditions: t1 >= 0 (upper boundary) && t2 >= 0 (left boundary) && t1 < row (lower boundary) && t2 < col (right boundary) <br>
+     *          (A2): If the current goal i-index and t1 are similar and current goal j-index and t2 are similar, this referes to the current goal itself and is discarded since current goal to itself is not neighbour <br>
+     *          (B): Check for the swap with neighbour "no-there" goal. Make sure that reverse swap not allowed in the same call of the method (current goal is not equal to the ealier swapped goal)<br>
+     *          (C): Check for the swap with neighbour moveable "is-there" goal. Make sure that reverse swap not allowed in the same call of the method <br> <br> 
+     * Step4: If conditions in Step3B/3C are satisfied <br>
+     *          (A): Put the swapped current goal "is-there" in the 2D array log to check reverse swap in the same call of the method <br>
+     *          (B): Put current goal (array cell) in temp <br>
+     *          (C): Swap the current goal with the "not there" goal or with moveable "is-there" goal <br>
+     *          (C): Put the temp in "not-there" or moveable "is-there" goal <br> <br> <br> 
+     *
+     *
+     * There are three difficulty levels: <br>
+     *  Level 1: All the goals are stationary <br>
+     *  Level 2: Half of the goals are stationary and half are moveable <br>
+     *  Level 3: All the goas are moveable <br>
+     * @param goals 2D array of goals
      */
     public void updateGoalPositions(Goal[][] goals) {
-        // write your code after this line
-        // Type: 1 is stationary
-        // Type: 2 is movable
-        // at difficulty level 1: all are type 1
-        // at difficulty level 2: all are type 1(50%) and type 2(50%)
-        // at difficulty level 3: all are type 2
-        
         int row = goals.length;
         int col = goals[0].length;
-        int [][] swaped = new int [row][col];
+        Goal[][] log= new Goal[row][col];
         Goal temp;
         int min=-1;
         int max=1;
         Random rand = new Random();
         for (int i=0;i<row;i++){
             for (int j=0;j<col;j++){
-                if (goals[i][j].getType() == 2 && goals[i][j].isHit() == false && swaped[i][j] == 0) {
-                    int r1 = rand.nextInt((max - min) + 1) + min;
-                    int r2 = rand.nextInt((max - min) + 1) + min;
-                    int t1=i+r1;
-                    int t2=j+r2;
+                if (goals[i][j].getType() == 2 && goals[i][j].isHit() == false) { //Step1
+                    int t1 = i + rand.nextInt((max - min) + 1) + min;; //Step2
+                    int t2 = j + rand.nextInt((max - min) + 1) + min;; //Step2
+                    IO.outputln("I am here_0");
+                    IO.outputln(goals[i][j])
+                    IO.outputln(goals[t1][t2])
                     
-                    if (i == t1 && j == t2) continue;
-
-                    if (t1 >= 0 && t2 >= 0 && t1 < row && t2 < col && goals[t1][t2].isHit() == true && swaped[i][j] == 0) { 
-                        temp=goals[i][j];
-                        goals[i][j]=goals[t1][t2];
-                        goals[t1][t2]=temp;
-                        swaped[i][j]=1;
+                    if (t1 >= 0 && t2 >= 0 && t1 < row && t2 < col && i != t1 && j != t2) { //Step3A1/3A2
+                        if (goals[t1][t2].isHit() == true && goals[i][j] != log[t1][t2]) { //Step3B
+                            IO.outputln("I am here_1");
+                            log[i][j]=goals[i][j]; //Step4
+                            temp=goals[i][j]; //Step4
+                            goals[i][j]=goals[t1][t2]; //Step4
+                            goals[t1][t2]=temp; //Step4
+                        }
+                        else if (goals[t1][t2].getType() == 2 && goals[i][j] != log[t1][t2]) { //Step3C
+                            IO.outputln("I am here_2");
+                            log[i][j]=goals[i][j]; //Step4
+                            temp=goals[i][j]; //Step4
+                            goals[i][j]=goals[t1][t2]; //Step4
+                            goals[t1][t2]=temp; //Step4
+                        }
                     }
                 }        
             } 

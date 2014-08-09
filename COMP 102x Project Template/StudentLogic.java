@@ -133,8 +133,8 @@ public class StudentLogic implements GameLogic{
      */
     public GameRecord[] updateHighScoreRecords(GameRecord[] highScoreRecords, String name, int level, int score) {
         int oldLen = highScoreRecords.length;
-        GameRecord[] scoreRecords=new GameRecord[oldLen+1];
-        GameRecord[] backSorting=new GameRecord[oldLen];
+        GameRecord[] scoreRecords=new GameRecord[oldLen+1]; // current 
+        GameRecord[] pnfSroting=new GameRecord[oldLen]; //palyers not found sorting array
         GameRecord[] intrSorting=new GameRecord[oldLen];
         boolean ans=false;
         int plays=10;
@@ -201,11 +201,11 @@ public class StudentLogic implements GameLogic{
                         scoreRecords[mIndex] = scoreRecords[i];
                         scoreRecords[i] = temp;
                     }
-
+                    // extract the top 10 records from updated highest score records that will be sent to the caller
                     for (int i=0;i<scoreRecords.length-1;i++){
-                        backSorting[i]=scoreRecords[i];
+                        pnfSroting[i]=scoreRecords[i];
                     }
-                    return backSorting;
+                    return pnfSroting;
                 }
             }
             //Rule4/5: 

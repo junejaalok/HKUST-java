@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.params=depthImages\ initialStep\ currentStep\ finalStep\ initialScale\ finalScale\ initialX\ finalX\ initialY\ finalY
+comment0.target=comp102x.ColorImage\ generateIntermediateFootballImage(comp102x.ColorImage[],\ int,\ int,\ int,\ double,\ double,\ int,\ int,\ int,\ int)
+comment0.text=\n\ This\ method\ generates\ an\ intermediate\ football\ image\ for\ the\ shooting\ animation\n\n\ @param\ depthImages\ \ The\ depth\ of\ the\ Image\n\ @param\ initialStep\ \ The\ initial\ step\ of\ the\ shooting\ animation\ respectively\n\ @param\ currentStep\ \ The\ current\ step\ of\ the\ shooting\ animation\ respectively\n\ @param\ finalStep\ \ \ \ The\ final\ step\ of\ the\ shooting\ animation\ respectively\n\ @param\ initialScale\ The\ initial\ scale\ of\ the\ football\n\ @param\ finalScale\ \ \ The\ final\ scale\ of\ the\ football\n\ @param\ initialX\ \ \ \ \ The\ initial\ x\ position\ of\ the\ football\n\ @param\ finalX\ \ \ \ \ \ \ The\ final\ x\ position\ of\ the\ football\n\ @param\ initialY\ \ \ \ \ The\ initial\ y\ position\ of\ the\ football\n\ @param\ finalY\ \ \ \ \ \ \ The\ final\ y\ position\ of\ the\ football\n\ @return\ the\ selected\ depth\ image\ of\ the\ football\n
+comment1.params=goals
+comment1.target=void\ updateGoalPositions(comp102x.assignment.Goal[][])
+comment1.text=\n\ Updates\ the\ positions\ of\ the\ goals\ periodically\n\n\ @param\ goals\ Represents\ the\ goals\ displayed\ on\ the\ main\ game\ screen\n
+comment2.params=highScoreRecords\ name\ level\ score
+comment2.target=comp102x.assignment.GameRecord[]\ updateHighScoreRecords(comp102x.assignment.GameRecord[],\ java.lang.String,\ int,\ int)
+comment2.text=\n\ Compares\ the\ record\ of\ the\ current\ game\ play\ with\ those\ of\ previous\ game\ plays\n\ and\ update\ the\ high-score\ records.\n\n\ @param\ highScoreRecords\ Represents\ the\ 1D\ array\ of\ the\ GameRecords\ of\ PREVIOUS\ game\ plays.\n\ @param\ name\ \ \ \ \ \ \ \ \ \ \ \ \ The\ name\ of\ the\ current\ game\n\ @param\ level\ \ \ \ \ \ \ \ \ \ \ \ The\ level\ of\ the\ current\ game\n\ @param\ score\ \ \ \ \ \ \ \ \ \ \ \ The\ score\ of\ the\ current\ game\n\ @return\ a\ 1D\ array\ of\ GameRecords\ after\ processing\ the\ record\ of\ the\ current\ game\ play\n
+comment3.params=records\ user
+comment3.target=boolean\ isUserExist(comp102x.assignment.GameRecord[],\ java.lang.String)
+comment3.text=\n\ Check\ if\ a\ user\ already\ exists\n\n\ @param\ records\ The\ records\n\ @param\ user\ \ \ \ The\ user\n\ @return\ true\ if\ user\ exists,\ false\ if\ not\n
+comment4.params=array\ size
+comment4.target=void\ sortArray(comp102x.assignment.GameRecord[],\ int)
+comment4.text=\n\ Sort\ an\ array\ by\ highest\ score\n\n\ @param\ array\ The\ array\n\ @param\ size\ \ The\ size\ of\ the\ array\n
+comment5.params=array\ size
+comment5.target=int\ minPos(comp102x.assignment.GameRecord[],\ int)
+comment5.text=\n\ Get\ the\ minimum\ value\ of\ the\ array\n\n\ @param\ array\ The\ array\n\ @param\ size\ \ The\ size\ of\ the\ array\n\ @return\ the\ minimum\ value\ of\ the\ array\n
+comment6.params=array\ index1\ index2
+comment6.target=void\ swapArrayRows(comp102x.assignment.GameRecord[],\ int,\ int)
+comment6.text=\n\ Swap\ array\ rows\n\n\ @param\ array\ \ The\ array\n\ @param\ index1\ The\ first\ index\n\ @param\ index2\ The\ second\ index\n
+numComments=7

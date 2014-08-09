@@ -8,6 +8,7 @@ import comp102x.IO;
 
 public class StudentLogic implements GameLogic{
     /**
+     * The online code: http://w02.hkvu.hk/edX/COMP102x/pa/ss/14076189416511842370/StudentLogic.java
      * Generates an intermediate football image for the shooting animation based on the x and y positions of the ball from the place it has been hit. 
      * The size of the images scales down as it moves away. <br>
      * factor = (currentStep - initialStep) / (finalStep - initialStep), is used to select the index to be used to extract of the image from depthImages array, to calculate
@@ -132,13 +133,14 @@ public class StudentLogic implements GameLogic{
      * The method compares the record of the current game player with those of previous game(s) played and update the highscore records. <br> <br>
      * Sorting criteria: <br>
      * A record is better than the other one if it has a higher score, or the two records have the same score, but it has a higher level. <br>
-     * For sorting selection sort algorithm is implemented.<br>
-     * Inline comments describe the step-by step implementation of the method in detail.<br>
-     * If this is first play, return the single game record
-     * If the current player has not played before, add the current player, do the selection sort and check for following conditions
-     * If game has been played less than 10 times previously, return the current playercheck if current player's name exist, if not add the palyer to the previous player records. Do the selection sort to return the high score records in decreasing order
-     * If game has been played 10 times previously, check if current player's name exist, if not then check if current players has performed better than previous players if so then replace the bad performed player with current player. Do the selection sort to return the high score records in decreasing order     
-     * 
+     * For sorting selection sort algorithm is implemented.<br> <br>
+     * Method implementation rules: <br> <br>
+     * Rule1: If this is first play, return the single game record. <br> <br>
+     * Rule2/3: If the current player has not played before, add the current player, do the selection sort and check for following conditions. <br>
+     * If game has been played less than 10 times previously, return highest score records array to the caller. <br>
+     * If game has been played 10 times previously, extract the top 10 records from updated highest score records that will be returned to the caller. <br> <br> 
+     * Rule4/5: If the current player has played before and performed better than his/her previous record. <br>
+     * Then replace his/her old record with the current record. Extract the top 10 records from updated highest score records that will be returned to the caller. <br>
      * 
      * @param highScoreRecords The array of previous players records.
      * @param name The name of the current player.
@@ -177,6 +179,7 @@ public class StudentLogic implements GameLogic{
             if (!ans){
                 // Add new current player record to current records array
                 scoreRecords[oldLen]=new GameRecord(name,level,score);
+                
                 // selection sort to sort the array
                 // find the highest score element in the array
                 int minPos;

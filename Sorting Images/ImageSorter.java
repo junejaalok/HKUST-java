@@ -78,6 +78,19 @@ public class ImageSorter
     /**
      * Sorts the image array by image area in ascending order.
      */
+ /*   private void selectSort() {
+    
+        int maxPos;
+        
+        for (int i = imageArray.length - 1; i > 0; i--) {
+            maxPos = maxIndex(i + 1);
+            swap(maxPos, i);
+        }
+    }*/
+    
+    /**
+     * Sorts the image array by image area in descreasing order.
+     */
     private void selectSort() {
     
         int maxPos;
@@ -87,7 +100,7 @@ public class ImageSorter
             swap(maxPos, i);
         }
     }
-    
+
     /**
      * Finds the index of the color image with the maximum height.
      */
@@ -102,7 +115,7 @@ public class ImageSorter
          */
         
         for (int i = 0; i < size; i++) {
-            if (imageArray[i].getHeight() > imageArray[mIndex].getHeight()) mIndex=i;
+            if (imageArray[i].getHeight() < imageArray[mIndex].getHeight()) mIndex=i;
             
             
             

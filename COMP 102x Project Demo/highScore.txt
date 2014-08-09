@@ -1,2 +1,1 @@
-dj	1	9
-carl	1	7
+Alok	2	1

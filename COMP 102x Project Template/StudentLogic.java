@@ -41,6 +41,7 @@ public class StudentLogic implements GameLogic{
     }
 
     /**
+     * Method implimentation <br> <br>  
      * Step0: Variables <br>
      *          log is Goal 2D array to keep long in order to avoid reverse swap in the same call of the method <br> <br>
      * Step1: For every goal (array cell), check following conditions <br>
@@ -85,15 +86,20 @@ public class StudentLogic implements GameLogic{
                 if (goals[i][j].getType() == 2 && goals[i][j].isHit() == false) { //Step1
                     int t1 = i + rand.nextInt((max - min) + 1) + min;; //Step2
                     int t2 = j + rand.nextInt((max - min) + 1) + min;; //Step2
+
                     if (debug) {
-                        IO.outputln("I am here_0");
-                        IO.outputln(i + " : " + j + " < > " + t1 + " : " + t2);
+                        IO.outputln("Current goal at index: " + i + "-" + j);
                     }
 
                     if (t1 >= 0 && t2 >= 0 && t1 < row && t2 < col && i != t1 && j != t2) { //Step3A1/3A2
+
+                        if (debug) {
+                            IO.outputln("Current goal at index: " + i + "-" + j + "randomaly picked nearest neighbour at index: " + t1 + "-" + t2);
+                        }
+
                         if (goals[t1][t2].isHit() == true && goals[i][j] != log[t1][t2]) { //Step3B
                             if (debug) {
-                                IO.outputln("I am here_1");
+                                IO.outputln("Current goal at index: " + i + "-" + j + "moves to 'no-there' goal at index: " + t1 + "-" + t2);
                             }    
                             log[i][j]=goals[i][j]; //Step4
                             temp=goals[i][j]; //Step4
@@ -102,7 +108,7 @@ public class StudentLogic implements GameLogic{
                         }
                         else if (goals[t1][t2].getType() == 2 && goals[i][j] != log[t1][t2]) { //Step3C
                             if (debug) {
-                                IO.outputln("I am here_2");
+                                IO.outputln("Current goal at index: " + i + "-" + j + "moves to moveable 'is-there' goal at index: " + t1 + "-" + t2);
                             }    
                             log[i][j]=goals[i][j]; //Step4
                             temp=goals[i][j]; //Step4
@@ -114,16 +120,144 @@ public class StudentLogic implements GameLogic{
             } 
         }
     }
-        
     
+    /**
+     * The method compares the record of the current game player with those of previous game(s) played and update the highscore records. <br> <br>
+     * Sorting criteria: <br>
+     * A record is better than the other one if it has a higher score, or the two records have the same score, but it has a higher level. 
+     * @param highScoreRecords The array of previous players records.
+     * @param name The name of the current player.
+     * @param level The level current player played.
+     * @param score The score current player has made.
+     * @return Array of top 10 high score records.
+     */
     public GameRecord[] updateHighScoreRecords(GameRecord[] highScoreRecords, String name, int level, int score) {
-        // write your code after this line
-        
-        
-        return highScoreRecords;
-        
-        
+        int oldLen = highScoreRecords.length;
+        GameRecord[] scoreRecords=new GameRecord[oldLen+1];
+        GameRecord[] backSorting=new GameRecord[oldLen];
+        GameRecord[] intrSorting=new GameRecord[oldLen];
+        boolean ans=false;
+        int plays=10;
+ 
+        // Rule1: If no records exist before. This is the first play.
+        if (oldLen == 0) {
+            scoreRecords[oldLen]=new GameRecord(name,level,score);
+        }
+        // if plays have been played previously
+        else {
+            // copy the previous records to the current array in this call to method
+            for(int i=0; i<oldLen; i++){
+                scoreRecords[i]=highScoreRecords[i];
+            }
+
+            // Check if the player's name exists in the previous records
+            for (int i=0;i<oldLen;i++) {
+                String check=highScoreRecords[i].getName();
+                if (check.equals(name)) ans=true;
+            }
+
+            // Rule2/3: Current player has not played previously
+            if (!ans){
+                // Rule2: Previously played games are less than 10
+                if (oldLen<plays) {
+                    // Add new current player record to current records array
+                    scoreRecords[oldLen]=new GameRecord(name,level,score);
+                    // selection sort to sort the array based on the criteria (Ref. Javadocs)
+                    // find the highest score element in the array
+                    int minPos;
+                    for (int i=oldLen-1;i>0;i--){
+                        int mIndex = 0;
+                        for (int j = 0; j < i+1; j++) {
+                            // Sort in decreasing order according to the score and if two scores are equal then sort according to the level
+                            if (scoreRecords[j].getScore() < scoreRecords[mIndex].getScore()) mIndex=j ;
+                            else if (scoreRecords[j].getScore() == scoreRecords[mIndex].getScore()) {
+                                if (scoreRecords[j].getLevel() < scoreRecords[mIndex].getLevel()) mIndex=j;
+                            }
+                        }
+                        //swap the highest score element and first element
+                        GameRecord temp = scoreRecords[mIndex];
+                        scoreRecords[mIndex] = scoreRecords[i];
+                        scoreRecords[i] = temp;
+                    }
+                    // Return the updated high score records
+                    return scoreRecords;
+                }
+                // Rule3: There are previous 10 games played
+                if (oldLen ==  plays) {
+                    // selection sort to sort the array based on the criteria (Ref. Javadocs)
+                    // find the highest score element in the array
+                    int minPos;
+                    for (int i=oldLen-1;i>0;i--){
+                        int mIndex = 0;
+                        for (int j = 0; j < i+1; j++) {
+                            // Sort in decreasing order according to the score and if two scores are equal then sort according to the level
+                            if (scoreRecords[j].getScore() < scoreRecords[mIndex].getScore()) mIndex=j ;
+                            else if (scoreRecords[j].getScore() == scoreRecords[mIndex].getScore()) {
+                                if (scoreRecords[j].getLevel() < scoreRecords[mIndex].getLevel()) mIndex=j;
+                            }
+                        }
+                        //swap the highest score element and first element
+                        GameRecord temp = scoreRecords[mIndex];
+                        scoreRecords[mIndex] = scoreRecords[i];
+                        scoreRecords[i] = temp;
+                    }
+
+                    for (int i=0;i<scoreRecords.length-1;i++){
+                        backSorting[i]=scoreRecords[i];
+                    }
+                    return backSorting;
+                }
+            }
+            //Rule4/5: 
+            if (ans){
+                for (int x=0;x<oldLen;x++){
+                    // 
+                    if (scoreRecords[x].getName().equals(name)) {
+                        // Update according to the score and if two scores are equal then sort according to the level
+                        if (scoreRecords[x].getScore() < score) {
+                            scoreRecords[x].setName(name);
+                            scoreRecords[x].setScore(score);
+                            scoreRecords[x].setLevel(level);
+                            for (int i=0;i<scoreRecords.length-1;i++) {
+                                intrSorting[i]=scoreRecords[i];
+                            }
+                            break;
+                        }
+                        // If scores are equals then update the record based on levels played
+                        else if (scoreRecords[x].getScore() == score) {
+                            if (scoreRecords[x].getLevel() < level) {
+                                scoreRecords[x].setName(name);
+                                scoreRecords[x].setScore(score);
+                                scoreRecords[x].setLevel(level);
+                                for (int i=0;i<scoreRecords.length-1;i++) {
+                                    intrSorting[i]=scoreRecords[i];
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                // selection sort to sort the array based on the criteria (Ref. Javadocs)
+                // find the highest score element in the array
+                int minPos;
+                for (int i=oldLen-1;i>0;i--){
+                    int mIndex = 0;
+                    for (int j = 0; j < i+1; j++) {
+                        // Sort in decreasing order according to the score and if two scores are equal then sort according to the level
+                        if (intrSorting[j].getScore() < intrSorting[mIndex].getScore()) mIndex=j ;
+                        else if (intrSorting[j].getScore() == intrSorting[mIndex].getScore()) {
+                            if (intrSorting[j].getLevel() < intrSorting[mIndex].getLevel()) mIndex=j;
+                        }
+                    }
+                    //swap the highest score element and first element
+                    GameRecord temp = intrSorting[mIndex];
+                    intrSorting[mIndex] = intrSorting[i];
+                    intrSorting[i] = temp;
+                }
+                return intrSorting;
+            }
+        }
+        return scoreRecords;
     }
-    
-    
 }

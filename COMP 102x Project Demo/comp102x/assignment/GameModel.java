@@ -38,7 +38,7 @@ public class GameModel {
 	public static final int GOAL_COLS = 4;
 
 	/** Parameter for defining the time allowed for the game. */
-	public static final int TIME_ALLOWED = 60;
+	public static final int TIME_ALLOWED = 10;
 
 	/**
 	 * Parameter for defining the total number of steps for the shooting

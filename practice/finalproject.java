@@ -1,6 +1,6 @@
 import java.util.Stack;
 
-public class Test {
+public class finalproject {
     /**
      * maxIndex finds the location of the largest value in an array upto index size - 1
      */
@@ -114,28 +114,7 @@ public class Test {
         return tmp;
     }*/
 
-    public static int f(String input) {
-  
-        Stack<Character> stack = new Stack<Character>();
-  
-        int n = 0;
-        
-        for (int i = 0; i < input.length(); i++) {
-  
-                if (input.charAt(i) == 'd')
-                        stack.push('d');
-           
-                else if (input.charAt(i) == 'b') {
-  
-                        if (!stack.empty() && stack.pop() == 'd') n++;
-                }
-        }  
-  
-        return n;
-}
-
-
-    public static void printHourglass (int size, char Symbol) {
+    public static void printHourglass (int size, char symbol) {
 
 /*        int i=0
         int spaces=size;
@@ -144,93 +123,46 @@ public class Test {
             printHourglass()
         }
         else if (size > 0) {
-            System.out.print(Symbol);
+            System.out.print(symbol);
             if size > 1
-                printHourglass(size-2,Symbol);
+                printHourglass(size-2,symbol);
             else
-                printHourglass(size+2,Symbol);
+                printHourglass(size+2,symbol);
         }
         else
             System.out.println()*/
-
-        for(int i=1;i<=size;i++) {
-            for(int j=1;j<i-1;j++)
-                System.out.print(" ");
-            for(int j=1;j<=2*(size-i);j++)
-                System.out.print(Symbol);
+        //For upper half
+        for (int i =0;i<size/2;i++) {
+            for (int x=0;x<i;x++)
+                System.out.print(' ');
+            for (int j=0;j<(size-(2*i));j++)
+                System.out.print(symbol);
+            for (int y=0;y<i;y++)
+                System.out.print(' ');
             System.out.println();
         }
 
-
- /*     for (int k=1; k <= size; k = k+1) {
-         System.out.print('|');         // print a vertical bar
-         printChars(' ', k-1);          // print k-1 spaces
-         System.out.print('\\');        // print a backslash
-         printChars('.', 2*(size-k));   // print 2(size-k) dots
-         System.out.print('/');         // print a slash
-         printChars(' ', k-1);          // print k-1 spaces
-         System.out.print('|');         // print a vertical bar
-         System.out.println();          // skip to next line
-*/
-
-
-        for(int i=1;i<=size;i++) {
-            for(int j=1;j<size-i;j++)
-                System.out.print(" ");
-            for(int j=1;j<=2*(i-1);j++)
-                System.out.print(Symbol);
+        //For middle case
+        for (int i =0;i<1;i++) {
+            for (int x=i;x<(size-i)/2;x++)
+                System.out.print(' ');
+            for (int j=0;j<1;j++)
+                System.out.print(symbol);
+            for (int y=i;y<(size-i)/2;y++)
+                System.out.print(' ');
             System.out.println();
         }
 
- /*   for (int k=1; k <= size; k = k+1) {
-         System.out.print('|');         // print a vertical bar
-         printChars(' ', size-k);       // print size-k spaces
-         System.out.print('/');         // print a slash
-         printChars('.', 2*(k-1));      // print 2(k-1) dots
-         System.out.print('\\');        // print a backslash
-         printChars(' ', size-k);       // print size-k spaces
-         System.out.print('|');         // print a vertical bar
-         System.out.println();          // skip to next line
-      }*/
-
-
-/*
-        int i = 0;
-        while (i<size) {
-            int x = 0;
-            while (x<i) {
-                System.out.print('T');
-                x++;
-            }
-
-            int iter = size - 2*i
-            if (iter > 0) {
-                int j = 0;
-                while (j<iter) {
-                    System.out.print(Symbol);
-                    j++;
-                }
-            }
-
-            else if (iter < 0) {
-                int j = 0;
-                while (j )
-
-            }
-            int y = 0;
-            while (y<i) {
-                System.out.print('T');
-                y++;
-            }
+        //For lower half
+        for (int i =1;i<=size/2;i++) {
+            for (int x=i;x<(size/2);x++)
+                System.out.print(' ');
+            for (int j=0;j<(i*2)+1;j++)
+                System.out.print(symbol);
+            for (int y=i;y<(size/2);y++)
+                System.out.print(' ');
             System.out.println();
-            i++;
-        }*/
-
-//            while (j<size) {
-//                tmp += space*i + Symbol*j + space*i;
-//                System.out.println(tmp);
-//                j+=2;
-//            }
+        }
     }
 
     public static void main(String args[]) {
@@ -373,10 +305,11 @@ sum=sumOfProduct(arr1,arr2,4);
 System.out.println(sum);*/
 
 //System.out.println(decipher("yjqzicdamnovvvozyrjstfad")); 
-//printHourglass(3, 'A');
-//printHourglass(7, '?');
-//printHourglass(5, 'Q');
-System.out.println(f("dddbbb"));
+printHourglass(3, 'A');
+printHourglass(7, '?');
+printHourglass(5, 'Q');
+printHourglass(51, '*');
+
 
 
     }
